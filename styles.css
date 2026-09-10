@@ -1,18 +1,6 @@
 /* =========================================================
    NEXUS LAB — HOJA DE ESTILOS
-   Estructura:
-   1. Variables y reset
-   2. Utilidades globales
-   3. Header
-   4. Hero
-   5. Sección de proyectos (grid predecible)
-   6. Ilustraciones CSS
-   7. Sección de proceso
-   8. Footer
-   9. Responsive
-   10. Modo oscuro y accesibilidad
    ========================================================= */
-
 
 /* =========================================================
    1. VARIABLES Y RESET
@@ -56,13 +44,9 @@
 
 *,
 *::before,
-*::after {
-  box-sizing: border-box;
-}
+*::after { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -74,22 +58,9 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-img,
-svg {
-  display: block;
-  max-width: 100%;
-}
-
-a {
-  color: inherit;
-}
-
-ul,
-ol {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+ul, ol { list-style: none; padding: 0; margin: 0; }
 
 h1, h2, h3, p {
   overflow-wrap: break-word;
@@ -147,9 +118,7 @@ button:focus-visible {
   transition: transform 0.2s ease;
 }
 
-.skip-link:focus {
-  transform: translateY(0);
-}
+.skip-link:focus { transform: translateY(0); }
 
 
 /* =========================================================
@@ -292,7 +261,7 @@ button:focus-visible {
 
 
 /* =========================================================
-   5. SECCIÓN DE PROYECTOS — GRID PREDECIBLE
+   5. SECCIÓN DE PROYECTOS
    ========================================================= */
 .projects-section {
   padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(3rem, 6vw, 5rem);
@@ -317,11 +286,6 @@ button:focus-visible {
   margin: 0;
 }
 
-/*
-  Grid de 2 columnas.
-  - Fila 1: feature (7fr) + compact (5fr)
-  - Fila 2: compact (5fr) + wide (7fr)  ← ya no hay spans raros
-*/
 .project-grid {
   display: grid;
   grid-template-columns: 7fr 5fr;
@@ -329,6 +293,7 @@ button:focus-visible {
   align-items: stretch;
 }
 
+/* Tarjeta como enlace */
 .project-card {
   min-width: 0;
   overflow: hidden;
@@ -339,30 +304,62 @@ button:focus-visible {
   transition: var(--transition);
   display: flex;
   flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
 }
 
-.project-card:hover {
+.project-card:hover,
+.project-card:focus-visible {
   transform: translateY(-0.3rem);
   box-shadow: var(--shadow-lg);
   border-color: transparent;
 }
 
-/* Asignación explícita de posiciones en el grid */
+/* Posiciones en el grid */
 .feature-card { grid-column: 1; grid-row: 1; }
 .compact-card:nth-of-type(2) { grid-column: 2; grid-row: 1; }
 .compact-card:nth-of-type(3) { grid-column: 1; grid-row: 2; }
 .wide-card    { grid-column: 2; grid-row: 2; }
 
+/* Imagen referencial */
 .project-art {
   position: relative;
-  min-height: 13rem;
   overflow: hidden;
-  isolation: isolate;
-  flex-shrink: 0;
+  aspect-ratio: 16 / 10;
+  background: var(--line);
 }
 
-.feature-card .project-art { min-height: 18rem; }
-.wide-card .project-art    { min-height: 14rem; }
+.feature-card .project-art { aspect-ratio: 16 / 9; }
+.wide-card .project-art    { aspect-ratio: 16 / 9; }
+
+.project-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-art img,
+.project-card:focus-visible .project-art img {
+  transform: scale(1.05);
+}
+
+.art-label {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.35rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--surface);
+  background: rgba(16, 42, 67, 0.75);
+  backdrop-filter: blur(6px);
+  border-radius: 999px;
+}
 
 .card-content {
   padding: clamp(1rem, 2.5vw, 1.6rem);
@@ -386,7 +383,6 @@ button:focus-visible {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin-top: auto;
 }
 
 .tag-list li {
@@ -399,148 +395,28 @@ button:focus-visible {
   background: color-mix(in srgb, var(--paper) 60%, transparent);
 }
 
-
-/* =========================================================
-   6. ILUSTRACIONES CSS
-   ========================================================= */
-
-/* --- Arte: ciudad --- */
-.art-urban { background: #a8d9db; }
-
-.art-label {
-  position: absolute;
-  z-index: 2;
-  top: 1rem;
-  left: 1rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+/* CTA dentro de la tarjeta */
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 1.1rem;
+  font-size: 0.85rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  color: var(--ink);
-}
-
-.sun {
-  position: absolute;
-  top: 18%;
-  right: 16%;
-  width: 4.8rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--lime);
-}
-
-.building {
-  position: absolute;
-  bottom: 0;
-  width: 22%;
-  background: var(--blue);
-}
-
-.building-one { height: 64%; left: 17%; }
-.building-two { height: 43%; right: 13%; background: var(--ink); }
-
-.route {
-  position: absolute;
-  z-index: 1;
-  bottom: -12%;
-  left: 38%;
-  width: 21%;
-  height: 88%;
-  border: 1.2rem solid var(--accent);
-  border-radius: 50%;
-  transform: rotate(35deg);
-}
-
-/* --- Arte: salud --- */
-.art-health { background: #f5b5a5; }
-
-.pulse {
-  position: absolute;
-  border: 0.65rem solid var(--surface);
-  border-radius: 50%;
-  opacity: 0.85;
-}
-
-.pulse-one {
-  width: 10rem;
-  aspect-ratio: 1;
-  top: 1.3rem;
-  left: 12%;
-}
-
-.pulse-two {
-  width: 5.5rem;
-  aspect-ratio: 1;
-  right: 14%;
-  bottom: 1rem;
-}
-
-.cross {
-  position: absolute;
-  right: 2.4rem;
-  top: 1.2rem;
-  color: var(--ink);
-  font-size: 4.5rem;
-  font-weight: 300;
-  line-height: 1;
-}
-
-/* --- Arte: educación --- */
-.art-learning { background: var(--lime); }
-
-.grid-dot {
-  position: absolute;
-  width: 3rem;
-  aspect-ratio: 1;
-  background: var(--ink);
-  border-radius: 50%;
-}
-
-.dot-one   { top: 1.5rem; left: 17%; }
-.dot-two   { top: 4.1rem; left: 39%; }
-.dot-three { bottom: 1.1rem; left: 17%; }
-.dot-four  { right: 15%; bottom: 2.2rem; }
-
-.arrow {
-  position: absolute;
-  top: 0.1rem;
-  right: 1.5rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--accent);
-  font-size: 4.5rem;
-  font-weight: 800;
+  transition: gap 0.2s ease;
 }
 
-/* --- Arte: agua --- */
-.art-water { background: #193f73; }
-
-.water-circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 10rem;
-  aspect-ratio: 1;
-  border: 0.75rem solid #94e3df;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
+.project-card:hover .card-cta,
+.project-card:focus-visible .card-cta {
+  gap: 0.6rem;
 }
-
-.water-line {
-  position: absolute;
-  left: -10%;
-  width: 120%;
-  height: 2.5rem;
-  border-top: 0.3rem solid #94e3df;
-  border-radius: 50%;
-  opacity: 0.8;
-}
-
-.line-one   { top: 18%; }
-.line-two   { top: 43%; }
-.line-three { top: 68%; }
 
 
 /* =========================================================
-   7. SECCIÓN DE PROCESO
+   6. SECCIÓN DE PROCESO
    ========================================================= */
 .process-section {
   display: grid;
@@ -582,7 +458,7 @@ button:focus-visible {
 
 
 /* =========================================================
-   8. FOOTER
+   7. FOOTER
    ========================================================= */
 .site-footer {
   display: flex;
@@ -611,10 +487,8 @@ button:focus-visible {
 
 
 /* =========================================================
-   9. RESPONSIVE
+   8. RESPONSIVE
    ========================================================= */
-
-/* Tablet: el grid pasa a 1 columna, todo apilado y ordenado */
 @media (max-width: 56rem) {
   .hero {
     grid-template-columns: 1fr;
@@ -622,13 +496,9 @@ button:focus-visible {
     gap: var(--space-md);
   }
 
-  .hero-note {
-    justify-self: start;
-  }
+  .hero-note { justify-self: start; }
 
-  .project-grid {
-    grid-template-columns: 1fr;
-  }
+  .project-grid { grid-template-columns: 1fr; }
 
   .feature-card,
   .compact-card:nth-of-type(2),
@@ -638,12 +508,9 @@ button:focus-visible {
     grid-row: auto;
   }
 
-  .process-section {
-    grid-template-columns: 1fr;
-  }
+  .process-section { grid-template-columns: 1fr; }
 }
 
-/* Móvil */
 @media (max-width: 42rem) {
   .header-content {
     flex-direction: column;
@@ -658,22 +525,18 @@ button:focus-visible {
     gap: var(--space-sm);
   }
 
-  .process-list {
-    grid-template-columns: 1fr;
-  }
+  .process-list { grid-template-columns: 1fr; }
 
   .site-footer {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
   }
-
-  .feature-card .project-art { min-height: 15rem; }
 }
 
 
 /* =========================================================
-   10. MODO OSCURO Y ACCESIBILIDAD
+   9. MODO OSCURO Y ACCESIBILIDAD
    ========================================================= */
 @media (prefers-color-scheme: dark) {
   :root {
@@ -696,11 +559,12 @@ button:focus-visible {
     background: #ffb08c;
   }
 
-  .art-urban    { background: #276f78; }
-  .art-health   { background: #854f5e; }
-  .art-learning { background: #779a2d; }
-
   .tag-list li { color: var(--muted); }
+
+  .art-label {
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
