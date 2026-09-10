@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Galería responsiva de proyectos técnicos desarrollados por estudiantes de Ingeniería de Sistemas.">
+    <meta name="theme-color" content="#123d63">
+    <title>Proyecto Nexus | Galería técnica</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+    <header class="site-header" data-category="proyectos-tecnicos">
+      <div class="header-content">
+        <a class="brand" href="#inicio" aria-label="Proyecto Nexus, ir al inicio">
+          <span aria-hidden="true">N</span>exus
+        </a>
+        <nav role="navigation" aria-label="Navegación principal">
+          <ul class="navigation-list" role="list">
+            <li><a href="#proyectos">Proyectos</a></li>
+            <li><a href="#proceso">Proceso</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenido" tabindex="-1">
+      <section class="hero" id="inicio" aria-labelledby="titulo-principal">
+        <div>
+          <p class="eyebrow">Laboratorio de innovación</p>
+          <h1 id="titulo-principal">Ideas técnicas que resuelven problemas reales.</h1>
+          <p class="intro">Una selección de prototipos creados con datos, diseño centrado en las personas y desarrollo web.</p>
+          <a class="button" href="#proyectos">Explorar proyectos <span aria-hidden="true">↓</span></a>
+        </div>
+        <aside class="hero-note" aria-label="Resumen de la galería">
+          <strong>06</strong>
+          <span>proyectos en<br>desarrollo</span>
+        </aside>
+      </section>
+
+      <section class="projects-section" id="proyectos" aria-labelledby="titulo-proyectos">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Portafolio</p>
+            <h2 id="titulo-proyectos">Proyectos destacados</h2>
+          </div>
+          <p>Propuestas desarrolladas para contextos educativos, urbanos y de salud.</p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card feature-card">
+            <div class="project-art art-urban" aria-hidden="true">
+              <span class="art-label">01 / Ciudad</span>
+              <div class="sun"></div><div class="building building-one"></div><div class="building building-two"></div><div class="route"></div>
+            </div>
+            <div class="card-content">
+              <p class="project-type">Datos urbanos</p>
+              <h3>Rutas Seguras</h3>
+              <p>Mapa colaborativo que prioriza trayectos peatonales según iluminación, tránsito y reportes vecinales.</p>
+              <ul class="tag-list" role="list"><li>HTML</li><li>CSS</li><li>Open Data</li></ul>
+            </div>
+          </article>
+
+          <article class="project-card compact-card">
+            <div class="project-art art-health" aria-hidden="true">
+              <span class="pulse pulse-one"></span><span class="pulse pulse-two"></span><span class="cross">+</span>
+            </div>
+            <div class="card-content">
+              <p class="project-type">Salud digital</p>
+              <h3>Vital</h3>
+              <p>Recordatorios claros para el seguimiento de tratamientos.</p>
+              <ul class="tag-list" role="list"><li>UX</li><li>Accesibilidad</li></ul>
+            </div>
+          </article>
+
+          <article class="project-card compact-card offset-card">
+            <div class="project-art art-learning" aria-hidden="true">
+              <span class="grid-dot dot-one"></span><span class="grid-dot dot-two"></span><span class="grid-dot dot-three"></span><span class="grid-dot dot-four"></span><span class="arrow">↗</span>
+            </div>
+            <div class="card-content">
+              <p class="project-type">Educación</p>
+              <h3>Aula Abierta</h3>
+              <p>Recursos breves para aprender programación por retos.</p>
+              <ul class="tag-list" role="list"><li>Web</li><li>Aprendizaje</li></ul>
+            </div>
+          </article>
+
+          <article class="project-card wide-card">
+            <div class="project-art art-water" aria-hidden="true">
+              <span class="water-circle"></span><span class="water-line line-one"></span><span class="water-line line-two"></span><span class="water-line line-three"></span>
+            </div>
+            <div class="card-content">
+              <p class="project-type">Sostenibilidad</p>
+              <h3>Gota a Gota</h3>
+              <p>Panel doméstico que transforma el consumo de agua en decisiones sencillas de ahorro.</p>
+              <ul class="tag-list" role="list"><li>IoT</li><li>Visualización</li><li>Impacto</li></ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="process-section" id="proceso" aria-labelledby="titulo-proceso">
+        <div>
+          <p class="eyebrow">Nuestra forma de crear</p>
+          <h2 id="titulo-proceso">Tecnología con intención.</h2>
+        </div>
+        <ol class="process-list">
+          <li><strong>01</strong><span>Entendemos el problema.</span></li>
+          <li><strong>02</strong><span>Probamos una idea útil.</span></li>
+          <li><strong>03</strong><span>Medimos y mejoramos.</span></li>
+        </ol>
+      </section>
+    </main>
+
+    <footer id="contacto" class="site-footer">
+      <p>Proyecto Nexus · Desarrollo de Aplicaciones Web</p>
+      <a href="mailto:equipo@nexus.edu.pe">equipo@nexus.edu.pe</a>
+    </footer>
+  </body>
+</html>
