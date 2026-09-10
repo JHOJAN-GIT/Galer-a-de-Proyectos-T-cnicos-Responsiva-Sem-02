@@ -15,6 +15,12 @@
   --muted: #526579;
   --line: #cbd3d4;
 
+  /* Colores de marca para redes */
+  --whatsapp: #25d366;
+  --linkedin: #0a66c2;
+  --github: #24292e;
+  --facebook: #1877f2;
+
   --space-2xs: 0.35rem;
   --space-xs: 0.65rem;
   --space-sm: 1rem;
@@ -82,12 +88,13 @@ button:focus-visible {
 
 
 /* =========================================================
-   2. UTILIDADES GLOBALES
+   2. UTILIDADES
    ========================================================= */
 .header-content,
 .hero,
 .projects-section,
 .process-section,
+.contact-section,
 .site-footer {
   width: var(--page);
   margin-inline: auto;
@@ -198,10 +205,7 @@ button:focus-visible {
   padding-block: clamp(3rem, 7vw, 5.5rem);
 }
 
-.hero-text {
-  min-width: 0;
-  max-width: 42rem;
-}
+.hero-text { min-width: 0; max-width: 44rem; }
 
 .hero-text h1 {
   font-size: var(--title-size);
@@ -213,6 +217,12 @@ button:focus-visible {
   margin-block: 1.25rem 1.75rem;
   font-size: clamp(1rem, 1.4vw, 1.15rem);
   color: var(--muted);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .button {
@@ -227,13 +237,27 @@ button:focus-visible {
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-md);
   transition: var(--transition);
+  border: 1px solid var(--ink);
 }
 
 .button:hover,
 .button:focus-visible {
   background: var(--blue);
+  border-color: var(--blue);
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
+}
+
+.button-ghost {
+  background: transparent;
+  color: var(--ink);
+  box-shadow: none;
+}
+
+.button-ghost:hover,
+.button-ghost:focus-visible {
+  background: var(--ink);
+  color: var(--surface);
 }
 
 .hero-note {
@@ -261,7 +285,7 @@ button:focus-visible {
 
 
 /* =========================================================
-   5. SECCIÓN DE PROYECTOS
+   5. PROYECTOS — GRID TIPO BENTO
    ========================================================= */
 .projects-section {
   padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(3rem, 6vw, 5rem);
@@ -286,14 +310,15 @@ button:focus-visible {
   margin: 0;
 }
 
+/* Grid de 12 columnas para layout tipo bento */
 .project-grid {
   display: grid;
-  grid-template-columns: 7fr 5fr;
+  grid-template-columns: repeat(12, 1fr);
   gap: var(--space-md);
   align-items: stretch;
 }
 
-/* Tarjeta como enlace */
+/* Tarjeta base */
 .project-card {
   min-width: 0;
   overflow: hidden;
@@ -316,13 +341,17 @@ button:focus-visible {
   border-color: transparent;
 }
 
-/* Posiciones en el grid */
-.feature-card { grid-column: 1; grid-row: 1; }
-.compact-card:nth-of-type(2) { grid-column: 2; grid-row: 1; }
-.compact-card:nth-of-type(3) { grid-column: 1; grid-row: 2; }
-.wide-card    { grid-column: 2; grid-row: 2; }
+/* Layout bento: 8 tarjetas */
+.feature-card              { grid-column: span 7; }   /* 01 grande */
+.compact-card:nth-of-type(2) { grid-column: span 5; } /* 02 */
+.compact-card:nth-of-type(3) { grid-column: span 5; } /* 03 */
+.wide-card                 { grid-column: span 7; }   /* 04 */
+.compact-card:nth-of-type(5) { grid-column: span 4; } /* 05 */
+.compact-card:nth-of-type(6) { grid-column: span 4; } /* 06 */
+.compact-card:nth-of-type(7) { grid-column: span 4; } /* 07 */
+.compact-card:nth-of-type(8) { grid-column: span 12; }/* 08 ancho completo */
 
-/* Imagen referencial */
+/* Imagen */
 .project-art {
   position: relative;
   overflow: hidden;
@@ -330,21 +359,28 @@ button:focus-visible {
   background: var(--line);
 }
 
-.feature-card .project-art { aspect-ratio: 16 / 9; }
-.wide-card .project-art    { aspect-ratio: 16 / 9; }
+.feature-card .project-art,
+.wide-card .project-art {
+  aspect-ratio: 16 / 9;
+}
+
+.compact-card:nth-of-type(8) .project-art {
+  aspect-ratio: 21 / 9;
+}
 
 .project-art img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .project-card:hover .project-art img,
 .project-card:focus-visible .project-art img {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
+/* Etiqueta sobre la imagen */
 .art-label {
   position: absolute;
   z-index: 2;
@@ -355,12 +391,13 @@ button:focus-visible {
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: var(--surface);
+  color: #fff;
   background: rgba(16, 42, 67, 0.75);
   backdrop-filter: blur(6px);
   border-radius: 999px;
 }
 
+/* Contenido */
 .card-content {
   padding: clamp(1rem, 2.5vw, 1.6rem);
   display: flex;
@@ -395,7 +432,6 @@ button:focus-visible {
   background: color-mix(in srgb, var(--paper) 60%, transparent);
 }
 
-/* CTA dentro de la tarjeta */
 .card-cta {
   display: inline-flex;
   align-items: center;
@@ -416,7 +452,7 @@ button:focus-visible {
 
 
 /* =========================================================
-   6. SECCIÓN DE PROCESO
+   6. PROCESO
    ========================================================= */
 .process-section {
   display: grid;
@@ -458,7 +494,133 @@ button:focus-visible {
 
 
 /* =========================================================
-   7. FOOTER
+   7. CONTACTO
+   ========================================================= */
+.contact-section {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  padding-block: clamp(3rem, 6vw, 5rem);
+  border-top: 1px solid var(--line);
+}
+
+.contact-intro h2 {
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  margin-top: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.contact-intro p {
+  color: var(--muted);
+  max-width: 40ch;
+  font-size: 1rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+
+/* Tarjeta de contacto */
+.contact-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--brand-color, var(--ink));
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 0;
+}
+
+.contact-card:hover,
+.contact-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: transparent;
+  box-shadow: var(--shadow-lg);
+}
+
+.contact-card:hover::before,
+.contact-card:focus-visible::before {
+  opacity: 0.08;
+}
+
+.contact-icon,
+.contact-text,
+.contact-arrow {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.85rem;
+  background: var(--brand-color, var(--ink));
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.contact-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.contact-text strong {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.contact-text span {
+  font-size: 0.82rem;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contact-arrow {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--muted);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.contact-card:hover .contact-arrow,
+.contact-card:focus-visible .contact-arrow {
+  transform: translate(3px, -3px);
+  color: var(--brand-color, var(--ink));
+}
+
+/* Colores de marca por red */
+.contact-whatsapp { --brand-color: var(--whatsapp); }
+.contact-linkedin { --brand-color: var(--linkedin); }
+.contact-github   { --brand-color: var(--github); }
+.contact-facebook { --brand-color: var(--facebook); }
+
+
+/* =========================================================
+   8. FOOTER
    ========================================================= */
 .site-footer {
   display: flex;
@@ -487,9 +649,24 @@ button:focus-visible {
 
 
 /* =========================================================
-   8. RESPONSIVE
+   9. RESPONSIVE
    ========================================================= */
-@media (max-width: 56rem) {
+@media (max-width: 64rem) {
+  .project-grid { grid-template-columns: repeat(6, 1fr); }
+
+  .feature-card                { grid-column: span 6; }
+  .compact-card:nth-of-type(2) { grid-column: span 3; }
+  .compact-card:nth-of-type(3) { grid-column: span 3; }
+  .wide-card                   { grid-column: span 6; }
+  .compact-card:nth-of-type(5) { grid-column: span 3; }
+  .compact-card:nth-of-type(6) { grid-column: span 3; }
+  .compact-card:nth-of-type(7) { grid-column: span 3; }
+  .compact-card:nth-of-type(8) { grid-column: span 3; }
+
+  .contact-section { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 48rem) {
   .hero {
     grid-template-columns: 1fr;
     align-items: start;
@@ -503,12 +680,16 @@ button:focus-visible {
   .feature-card,
   .compact-card:nth-of-type(2),
   .compact-card:nth-of-type(3),
-  .wide-card {
+  .wide-card,
+  .compact-card:nth-of-type(5),
+  .compact-card:nth-of-type(6),
+  .compact-card:nth-of-type(7),
+  .compact-card:nth-of-type(8) {
     grid-column: 1;
-    grid-row: auto;
   }
 
   .process-section { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 42rem) {
@@ -532,11 +713,14 @@ button:focus-visible {
     align-items: flex-start;
     gap: 0.5rem;
   }
+
+  .hero-actions { width: 100%; }
+  .hero-actions .button { flex: 1; justify-content: center; }
 }
 
 
 /* =========================================================
-   9. MODO OSCURO Y ACCESIBILIDAD
+   10. MODO OSCURO Y ACCESIBILIDAD
    ========================================================= */
 @media (prefers-color-scheme: dark) {
   :root {
@@ -547,30 +731,41 @@ button:focus-visible {
     --line: #385064;
     --blue: #89c8ff;
     --accent: #ff9b76;
+    --github: #6e7681;
   }
 
   .button {
     background: var(--accent);
+    border-color: var(--accent);
     color: #24140f;
   }
 
   .button:hover,
   .button:focus-visible {
     background: #ffb08c;
+    border-color: #ffb08c;
+  }
+
+  .button-ghost {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line);
+  }
+
+  .button-ghost:hover,
+  .button-ghost:focus-visible {
+    background: var(--accent);
+    color: #24140f;
+    border-color: var(--accent);
   }
 
   .tag-list li { color: var(--muted); }
 
-  .art-label {
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
-  }
+  .art-label { background: rgba(0, 0, 0, 0.65); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  *, *::before, *::after {
-    transition: var(--transition);
-  }
+  *, *::before, *::after { transition: var(--transition); }
 }
 
 @media (prefers-reduced-motion: reduce) {
